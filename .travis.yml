@@ -1,14 +1,14 @@
 language: go
 
 go:
-- "1.10"
+- '1.10'
 
 env:
-  - DEP_VERSION="0.4.1"
+- DEP_VERSION="0.4.1"
 
 before_install:
-  - curl -L -s https://github.com/golang/dep/releases/download/v${DEP_VERSION}/dep-linux-amd64 -o $GOPATH/bin/dep
-  - chmod +x $GOPATH/bin/dep
+- curl -L -s https://github.com/golang/dep/releases/download/v${DEP_VERSION}/dep-linux-amd64 -o $GOPATH/bin/dep
+- chmod +x $GOPATH/bin/dep
 
 install:
 - dep ensure
@@ -19,8 +19,8 @@ script:
 deploy:
   provider: releases
   api_key:
-    secure: iZ/AsIDE5POcgCmYKNBo+H1lbmy/ttG2zVP5bqBHmF9yh5wjOdaR6qKxfOMu+9ijRG5w/Tm3icGkFSZTyYGTBBKe6EI7qv9he/tF8mxhZD9940Wpf+gQS/zfy85riZGL8N+UpY7DkfNm7sfmgbSt/35EQOccFh+VF1FJYQuXhXw/EWr4O1sjbOzeXg7wjK8n5JaaSxjnlX/gJbcj4OZ9w2f9heBpyDqP5AGivhZsV8Gc1/idSILvVTe3etBr2Rn94Pxu7IsFQRH3i8r3PPEr9FWJ54csjxaEfbxuKhaMQoIyLFm1SEVmfJECT5VPYa2gYtTDqACgbrNOkbUDh2YjOnXelbzFA5d5nmPcqG3HURWpOAkkJwOcewP3zAC8weozxivsLQFCM85ULkoQI5YjH+mbV94jNY+55hIqnTpXHF01ldm0KYizA2kUm/R8BCFeiYbUHjQ6fM5lDr24G580FsdDYAjuITt9+ukV4Jv92/ALaWFvyIBQEbMJN6FEUN5yFeNjiLBQIcR5NI2Mgsuzk32K+Hmpn1UypZqWLyVoiDzZgcBdGk0hLlQNnDpA/eR9WTjVXf74L9zueS21IZNFR6HCjJyyEXnOtjrs0xkHafzBtjT4G/7yacdFWeJZwW4kmRbfJk+pxflVBvIFJoIF0HXxa7FLwwf244zKxUh/XuI=
-  file: 'semver'
-  skip_cleanup: true
+    secure: LVsuLiJwBQjTZ401AkYZb6plsaUorBcngk71jVKJfvqeQ5gbkKjhxyzq1cpU7zoOuxaHaDRLnpT17kEZ2bvFILSV/2Q+NXqjYLd/PjvRSYPVKF7/TQVZUF9tScZI4v18GLytbB8WSWQJ3StBHTKpMQzulfNpH7UXRZSejvwYdMFibg16rGfoUBihikrExI/STpBEYWt3i/HREQrLVI4t/r9K6KlN+eQiYefXkf14zRv+6sW7KgW71ix9h8H1drGyQPI8jNm0YhXQ/wY83rgqY7sQXXnQaRRmKj2hc1vN5yRfkv7ijDpA6Lbzo87jXK7AnjQHAKZTtTF396bsNk3YAf6Qx6qehLIhwvsBJzuoel8e2qG1oNhrlJXCcv1gVfaKG/t7dk1Gs9oZyNe4Tn3tBg1O4WfYPdcOnSUSF/3ABFqkdUqm2/9tHah1dLdSxfsR0usqQTxHF2dCDGMtk/HTl58M+zYesSFgBD01SWgVwrbiWUWVUhWCdgNu2qG3m9VJNiOf/xE9TAZl9CapFnrNGhkatBmD+rz7WEV8R2TRBHREpsQ31mhJJMbb1cOgRYS6XyohvCEh5W3DtQttLUFoehtJYZcNlpMi0PGDz4UTQEJpJYtL16gRVXhMUwQ+liWPqMoNOYB9ym+y8MGDLpUZ94OJUkKnbqiQ4cWGh5dDeMU=
+  file: semver
   on:
+    repo: davidrjonas/semver-cli
     tags: true
