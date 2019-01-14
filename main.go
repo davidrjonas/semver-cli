@@ -34,6 +34,10 @@ var (
 	incComponent = inc.Arg("COMPONENT", "The component to increment. Possible values: [major, minor, patch]").Required().String()
 	incVersion   = inc.Arg("VERSION", "The version to increment.").Required().String()
 
+	get          = app.Command("get", "Get major, minor, or patch component.")
+	getComponent = get.Arg("COMPONENT", "The component to increment. Possible values: [major, minor, patch]").Required().String()
+	getVersion   = get.Arg("VERSION", "The version to retreive component from.").Required().String()
+
 	set          = app.Command("set", "Set prerelease or metadata component.")
 	setComponent = set.Arg("COMPONENT", "The component to increment. Possible values: [prerelease, metadata]").Required().String()
 	setVersion   = set.Arg("VERSION", "The version of which to set a component.").Required().String()
@@ -117,6 +121,22 @@ func main() {
 			os.Exit(-1)
 		}
 		fmt.Println(v1.String())
+
+	case get.FullCommand():
+		v := mustParseVersion(*getVersion, "VERSION")
+		var component int64
+		switch *getComponent {
+		case "major":
+			component = v.Major()
+		case "minor":
+			component = v.Minor()
+		case "patch":
+			component = v.Patch()
+		default:
+			fmt.Fprintf(os.Stderr, "unknown component name: '%s'\n", *getComponent)
+			os.Exit(-1)
+		}
+		fmt.Println(component)
 
 	case set.FullCommand():
 		v := mustParseVersion(*setVersion, "VERSION")
