@@ -36,6 +36,9 @@ Commands:
   inc <COMPONENT> <VERSION>
     Increment major, minor, or patch component.
 
+  get <COMPONENT> <VERSION>
+    Get major, minor, or patch component.
+
   set <COMPONENT> <VERSION> <VALUE>
     Set prerelease or metadata component.
 ```
