@@ -37,7 +37,7 @@ Commands:
     Increment major, minor, or patch component.
 
   get <COMPONENT> <VERSION>
-    Get major, minor, or patch component.
+    Get major, minor, patch, prerelease or metadata component.
 
   set <COMPONENT> <VERSION> <VALUE>
     Set prerelease or metadata component.
