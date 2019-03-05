@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"strconv"
 
 	"github.com/Masterminds/semver"
 	kingpin "gopkg.in/alecthomas/kingpin.v2"
@@ -34,8 +35,8 @@ var (
 	incComponent = inc.Arg("COMPONENT", "The component to increment. Possible values: [major, minor, patch]").Required().String()
 	incVersion   = inc.Arg("VERSION", "The version to increment.").Required().String()
 
-	get          = app.Command("get", "Get major, minor, or patch component.")
-	getComponent = get.Arg("COMPONENT", "The component to increment. Possible values: [major, minor, patch]").Required().String()
+	get          = app.Command("get", "Get major, minor, patch, prerelease or metadata component.")
+	getComponent = get.Arg("COMPONENT", "The component to increment. Possible values: [major, minor, patch, prerelease, metadata]").Required().String()
 	getVersion   = get.Arg("VERSION", "The version to retreive component from.").Required().String()
 
 	set          = app.Command("set", "Set prerelease or metadata component.")
@@ -124,14 +125,18 @@ func main() {
 
 	case get.FullCommand():
 		v := mustParseVersion(*getVersion, "VERSION")
-		var component int64
+		var component string
 		switch *getComponent {
 		case "major":
-			component = v.Major()
+			component = strconv.FormatInt(v.Major(), 10)
 		case "minor":
-			component = v.Minor()
+			component = strconv.FormatInt(v.Minor(), 10)
 		case "patch":
-			component = v.Patch()
+			component = strconv.FormatInt(v.Patch(), 10)
+		case "prerelease":
+			component = v.Prerelease()
+		case "metadata":
+			component = v.Metadata()
 		default:
 			fmt.Fprintf(os.Stderr, "unknown component name: '%s'\n", *getComponent)
 			os.Exit(-1)
