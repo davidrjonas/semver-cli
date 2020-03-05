@@ -128,11 +128,11 @@ func main() {
 		var component string
 		switch *getComponent {
 		case "major":
-			component = strconv.FormatInt(v.Major(), 10)
+			component = strconv.FormatUint(v.Major(), 10)
 		case "minor":
-			component = strconv.FormatInt(v.Minor(), 10)
+			component = strconv.FormatUint(v.Minor(), 10)
 		case "patch":
-			component = strconv.FormatInt(v.Patch(), 10)
+			component = strconv.FormatUint(v.Patch(), 10)
 		case "prerelease":
 			component = v.Prerelease()
 		case "metadata":
