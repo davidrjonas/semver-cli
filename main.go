@@ -5,7 +5,7 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/Masterminds/semver"
+	semver "github.com/Masterminds/semver/v3"
 	kingpin "gopkg.in/alecthomas/kingpin.v2"
 )
 
