@@ -1,0 +1,30 @@
+env:
+  - GO111MODULE=on
+  - GOPROXY=https://goproxy.io
+
+before:
+  hooks:
+    - go mod download
+
+builds:
+  -
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - darwin
+      - linux
+      - windows
+    goarch:
+      - amd64
+
+archives:
+  - format: binary
+    replacements:
+      amd64: x86_64
+    files:
+      - LICENSE
+      - README.md
+      - CHANGELOG.md
+
+checksum:
+  name_template: 'checksums.txt'

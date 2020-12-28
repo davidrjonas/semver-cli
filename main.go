@@ -9,7 +9,7 @@ import (
 	kingpin "gopkg.in/alecthomas/kingpin.v2"
 )
 
-var version = "1.0.0"
+var version = "1.1.1"
 
 var (
 	app     = kingpin.New("semver", "Command-line semver tools. On error, print to stderr and exit -1.")
