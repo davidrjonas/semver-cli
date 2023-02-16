@@ -6,7 +6,7 @@ import (
 	"strconv"
 
 	semver "github.com/Masterminds/semver/v3"
-	kingpin "gopkg.in/alecthomas/kingpin.v2"
+	kingpin "github.com/alecthomas/kingpin/v2"
 )
 
 var version = "1.0.0"
