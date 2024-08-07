@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"sort"
 	"strconv"
 
 	semver "github.com/Masterminds/semver/v3"
@@ -43,6 +44,11 @@ var (
 	setComponent = set.Arg("COMPONENT", "The component to increment. Possible values: [prerelease, metadata]").Required().String()
 	setVersion   = set.Arg("VERSION", "The version of which to set a component.").Required().String()
 	setValue     = set.Arg("VALUE", "The value to set.").Required().String()
+
+	greatest           = app.Command("greatest", "Find the greatest version in a list.")
+	filter_pre_release = greatest.Flag("filte-pre-release", "Ignores all versions with pre-release information before comparison").Short('p').Bool()
+	filter_build       = greatest.Flag("filte-build", "Ignores all versions with build information before comparison").Short('b').Bool()
+	versions           = greatest.Arg("VERSIONS", "The versions to compare.").Required().Strings()
 )
 
 func main() {
@@ -163,6 +169,40 @@ func main() {
 			os.Exit(-1)
 		}
 		fmt.Println(v1.String())
+
+	case greatest.FullCommand():
+		all_parsed_versions := []semver.Version{}
+		for _, v := range *versions {
+			all_parsed_versions = append(all_parsed_versions, *mustParseVersion(v, "VERSION"))
+		}
+
+		filtered_versions := all_parsed_versions
+
+		if *filter_pre_release {
+			filtered_pre_release := []semver.Version{}
+			for _, v := range all_parsed_versions {
+				if v.Prerelease() == "" {
+					filtered_pre_release = append(filtered_pre_release, v)
+				}
+			}
+			filtered_versions = filtered_pre_release
+		}
+
+		if *filter_build {
+			filtered_build := []semver.Version{}
+			for _, v := range filtered_versions {
+				if v.Metadata() == "" {
+					filtered_build = append(filtered_build, v)
+				}
+			}
+			filtered_versions = filtered_build
+		}
+
+		sort.Slice(filtered_versions, func(i, j int) bool {
+			return filtered_versions[i].LessThan(&filtered_versions[j])
+		})
+
+		fmt.Println(filtered_versions[len(filtered_versions)-1].String())
 	}
 }
 
